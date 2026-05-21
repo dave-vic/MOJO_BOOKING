@@ -302,13 +302,28 @@
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--r-md);
-  padding: var(--s-4);
+  padding: var(--s-2) var(--s-5);
   margin: 0;
 }
 
 .policy-list--big li {
   font-size: 14px;
-  padding-block: 6px;
+  padding-block: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s-6);
+}
+
+.policy-list--big li span {
+  color: var(--ink-700);
+  flex: 1;
+}
+
+.policy-list--big li strong {
+  white-space: nowrap;
+  color: var(--ink-900);
+  font-weight: 600;
 }
 
 .policy-list--big li + li {
