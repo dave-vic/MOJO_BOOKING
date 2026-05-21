@@ -81,10 +81,16 @@
 }
 
 .salon-card__name {
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.3;
   margin: 0;
+  /* Cap at 2 lines so all cards stay consistent height */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: calc(16px * 1.3 * 2); /* reserve space for 2 lines always */
 }
 
 .salon-card__address {
