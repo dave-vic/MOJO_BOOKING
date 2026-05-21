@@ -283,7 +283,7 @@
 .map-salon-card.is-active {
   border-color: var(--brand-500);
   background: var(--brand-50);
-  box-shadow: 0 0 0 3px rgba(185, 87, 45, 0.12);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
 }
 
 .map-salon-card__img {
@@ -361,9 +361,9 @@
 }
 
 .map-stylist-card.is-active {
-  border-color: var(--plum-700);
-  background: rgba(58, 32, 66, 0.04);
-  box-shadow: 0 0 0 3px rgba(58, 32, 66, 0.08);
+  border-color: var(--brand-500);
+  background: rgba(22, 163, 74, 0.06);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10);
 }
 
 .map-stylist-card__avatar {
@@ -420,8 +420,8 @@
 .map-stylist-card__book {
   font-size: 12px;
   font-weight: 600;
-  color: var(--plum-700);
-  background: rgba(58, 32, 66, 0.06);
+  color: var(--brand-600);
+  background: rgba(22, 163, 74, 0.08);
   padding: 3px 8px;
   border-radius: var(--r-sm);
 }

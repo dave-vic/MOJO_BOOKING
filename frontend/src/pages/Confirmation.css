@@ -37,7 +37,7 @@
   margin-top: var(--s-8);
   padding: var(--s-6);
   background:
-    radial-gradient(circle at 80% 20%, rgba(214, 121, 77, 0.1), transparent 60%),
+    radial-gradient(circle at 80% 20%, rgba(22, 163, 74, 0.08), transparent 60%),
     var(--bg-soft);
   border-radius: var(--r-lg);
   border: 1px dashed var(--line-strong);

@@ -21,12 +21,13 @@ export default function Search() {
   const activeCardRef = useRef(null)
 
   const search = params.get('search') || ''
-  const area = params.get('area') || 'All'
+  const area   = params.get('area')   || 'All'
+  const type   = params.get('type')   || 'all'
 
   useEffect(() => {
     let mounted = true
     setLoading(true)
-    api.listSalons({ search, area: area === 'All' ? '' : area })
+    api.listSalons({ search, area: area === 'All' ? '' : area, type: type === 'all' ? '' : type })
       .then((data) => {
         if (!mounted) return
         setAllSalons(data)
@@ -35,7 +36,7 @@ export default function Search() {
       .catch((e) => mounted && setError(e.message))
       .finally(() => mounted && setLoading(false))
     return () => { mounted = false }
-  }, [search, area])
+  }, [search, area, type])
 
   const [allAreas, setAllAreas] = useState([])
   useEffect(() => {
@@ -118,16 +119,32 @@ export default function Search() {
             <div className="search-map-topbar">
               <input
                 className="input search-map-input"
-                placeholder="Salon, service, stylist…"
+                placeholder="Salon, barber, service, stylist…"
                 value={search}
                 onChange={(e) => setParam('search', e.target.value)}
               />
+              {/* Type filter */}
+              <div className="search-map-types">
+                {[
+                  { key: 'all',        label: 'All' },
+                  { key: 'salon',      label: '✦ Hair Salons' },
+                  { key: 'barbershop', label: '✂ Barbershops' },
+                ].map((t) => (
+                  <button
+                    key={t.key}
+                    type="button"
+                    onClick={() => setParam('type', t.key)}
+                    className={`chip${type === t.key ? ' chip-active' : ''}`}
+                  >{t.label}</button>
+                ))}
+              </div>
+              {/* Area filter */}
               <div className="search-map-areas">
                 <button
                   type="button"
                   onClick={() => setParam('area', 'All')}
                   className={`chip${area === 'All' ? ' chip-active' : ''}`}
-                >All</button>
+                >All areas</button>
                 {allAreas.map((a) => (
                   <button
                     key={a}
@@ -147,7 +164,7 @@ export default function Search() {
                   onClick={() => setMapTab('salons')}
                   className={`search-map-tab${mapTab === 'salons' ? ' is-active' : ''}`}
                 >
-                  Salons
+                  Venues
                   <span className="search-map-tab__count">{sortedSalons.length}</span>
                 </button>
                 <button
@@ -155,7 +172,7 @@ export default function Search() {
                   onClick={() => setMapTab('stylists')}
                   className={`search-map-tab${mapTab === 'stylists' ? ' is-active' : ''}`}
                 >
-                  Stylists
+                  Staff
                   <span className="search-map-tab__count">{allStylists.length}</span>
                 </button>
               </div>
@@ -227,10 +244,10 @@ export default function Search() {
                   )
                 })
               ) : (
-                /* Stylists tab */
+                /* Staff tab (stylists + barbers) */
                 allStylists.length === 0 ? (
                   <div className="search-map-empty">
-                    <p>No stylists match. <button type="button" className="link-btn" onClick={() => setParams({}, { replace: true })}>Clear filters</button></p>
+                    <p>No staff match. <button type="button" className="link-btn" onClick={() => setParams({}, { replace: true })}>Clear filters</button></p>
                   </div>
                 ) : allStylists.map((st) => {
                   const isActive = activeId === st.salonId

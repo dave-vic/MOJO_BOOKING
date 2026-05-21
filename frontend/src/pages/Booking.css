@@ -39,11 +39,11 @@
 }
 
 .stepper__item.is-active {
-  background: var(--ink-900);
-  border-color: var(--ink-900);
+  background: var(--brand-500);
+  border-color: var(--brand-500);
   color: #fff;
 }
-.stepper__item.is-active .stepper__num { background: rgba(255,255,255,0.18); color: #fff; }
+.stepper__item.is-active .stepper__num { background: rgba(255,255,255,0.22); color: #fff; }
 
 .stepper__item.is-done {
   border-color: var(--success);
@@ -137,7 +137,7 @@
 }
 
 .stylist-row:hover { border-color: var(--ink-700); }
-.stylist-row.is-selected { border-color: var(--plum-700); background: rgba(107, 58, 125, 0.04); }
+.stylist-row.is-selected { border-color: var(--brand-500); background: rgba(22, 163, 74, 0.06); }
 
 .stylist-row__avatar {
   width: 56px;
@@ -193,7 +193,7 @@
 }
 
 .service-option:hover { border-color: var(--ink-700); }
-.service-option.is-selected { border-color: var(--plum-700); background: rgba(107, 58, 125, 0.04); }
+.service-option.is-selected { border-color: var(--brand-500); background: rgba(22, 163, 74, 0.06); }
 .service-option > div:first-child { flex: 1; }
 .service-option__name { font-weight: 600; }
 .service-option__meta { font-size: 13px; color: var(--ink-500); margin-top: 2px; }
@@ -225,8 +225,8 @@
 
 .date-pill:hover { border-color: var(--ink-700); }
 .date-pill.is-active {
-  background: var(--ink-900);
-  border-color: var(--ink-900);
+  background: var(--brand-500);
+  border-color: var(--brand-500);
   color: #fff;
 }
 
@@ -259,8 +259,8 @@
 
 .time-pill:hover { border-color: var(--ink-700); }
 .time-pill.is-active {
-  background: var(--ink-900);
-  border-color: var(--ink-900);
+  background: var(--brand-500);
+  border-color: var(--brand-500);
   color: #fff;
 }
 

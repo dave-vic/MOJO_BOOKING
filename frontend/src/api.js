@@ -17,9 +17,9 @@ async function request(path, opts = {}) {
 }
 
 export const api = {
-  listSalons: ({ search, area } = {}) => {
+  listSalons: ({ search, area, type } = {}) => {
     const qs = new URLSearchParams(
-      Object.entries({ search, area }).filter(([, v]) => v != null && v !== '')
+      Object.entries({ search, area, type }).filter(([, v]) => v != null && v !== '')
     ).toString();
     return request(`/salons${qs ? `?${qs}` : ''}`);
   },

@@ -34,9 +34,9 @@ export default function SalonDetails() {
   if (error || !salon) {
     return (
       <div className="container" style={{ padding: 'var(--s-16) 0' }}>
-        <h2>Salon not found</h2>
-        <p className="text-muted" style={{ marginTop: 12 }}>The salon you're looking for doesn't exist.</p>
-        <Link to="/search" className="btn btn-primary" style={{ marginTop: 24 }}>Browse all salons</Link>
+        <h2>Not found</h2>
+        <p className="text-muted" style={{ marginTop: 12 }}>That salon or barbershop doesn't exist or has moved.</p>
+        <Link to="/search" className="btn btn-primary" style={{ marginTop: 24 }}>Browse salons & barbers</Link>
       </div>
     )
   }
@@ -54,7 +54,9 @@ export default function SalonDetails() {
         <nav className="breadcrumb" aria-label="Breadcrumb">
           <Link to="/">Home</Link>
           <span aria-hidden="true">›</span>
-          <Link to="/search">Salons</Link>
+          <Link to={salon.type === 'barbershop' ? '/search?type=barbershop' : '/search?type=salon'}>
+            {salon.type === 'barbershop' ? 'Barbershops' : 'Hair Salons'}
+          </Link>
           <span aria-hidden="true">›</span>
           <span>{salon.name}</span>
         </nav>
@@ -116,7 +118,9 @@ export default function SalonDetails() {
             <section className="salon-section" id="stylists">
               <div className="salon-section__head">
                 <h2>Meet the team</h2>
-                <span className="text-muted">Pick a stylist to start booking</span>
+                <span className="text-muted">
+                  {salon.type === 'barbershop' ? 'Pick a barber to start booking' : 'Pick a stylist to start booking'}
+                </span>
               </div>
               <div className="stylist-grid">
                 {salon.stylists.map((st) => (

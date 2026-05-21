@@ -11,8 +11,6 @@
   background: var(--ink-900);
   color: #fff;
   font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 700;
   padding: 5px 11px;
   border-radius: var(--r-pill);
   white-space: nowrap;
@@ -20,8 +18,30 @@
   transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
   cursor: pointer;
   border: 2px solid transparent;
-  line-height: 1.1;
   user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1;
+}
+
+.map-pin__name {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.map-pin__price {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.75;
+}
+
+/* Divider dot between name and price */
+.map-pin__name + .map-pin__price::before {
+  content: '·';
+  margin-right: 5px;
+  opacity: 0.6;
 }
 
 .map-pin:hover {
@@ -33,9 +53,13 @@
 .map-pin--active {
   background: var(--brand-500);
   border-color: #fff;
-  box-shadow: 0 4px 18px rgba(185, 87, 45, 0.55);
+  box-shadow: 0 4px 18px rgba(22, 163, 74, 0.50);
   transform: translate(-50%, -50%) scale(1.14);
   z-index: 1000 !important;
+}
+
+.map-pin--active .map-pin__price {
+  opacity: 0.9;
 }
 
 /* Zoom control */

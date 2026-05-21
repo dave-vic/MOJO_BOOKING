@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import L from 'leaflet'
 import { formatPrice } from '../api.js'
 import 'leaflet/dist/leaflet.css'
@@ -33,9 +34,12 @@ export default function MapView({ salons, activeId, onSelect, hoveredPopup }) {
   const mapRef       = useRef(null)
   const markersRef   = useRef({})
 
-  // Keep onSelect stable inside event closures
-  const onSelectRef = useRef(onSelect)
-  useEffect(() => { onSelectRef.current = onSelect }, [onSelect])
+  // Keep callbacks stable inside Leaflet event closures
+  const navigate       = useNavigate()
+  const navigateRef    = useRef(navigate)
+  const onSelectRef    = useRef(onSelect)
+  useEffect(() => { navigateRef.current = navigate }, [navigate])
+  useEffect(() => { onSelectRef.current = onSelect },  [onSelect])
 
   // ── Initialize map once ──────────────────────────────────────────
   useEffect(() => {
@@ -83,22 +87,32 @@ export default function MapView({ salons, activeId, onSelect, hoveredPopup }) {
       const price = salon.featuredServices?.length
         ? Math.min(...salon.featuredServices.map((sv) => sv.price))
         : null
-      const priceLabel = price != null ? formatPrice(price) : salon.area
-      const isActive   = salon.id === activeId
+      const isActive = salon.id === activeId
+
+      // Truncate long names so the pill stays compact
+      const maxLen   = 14
+      const shortName = salon.name.length > maxLen
+        ? salon.name.slice(0, maxLen).trimEnd() + '…'
+        : salon.name
+      const priceStr  = price != null ? formatPrice(price) : ''
 
       const icon = L.divIcon({
         className: '',
-        html: `<div class="map-pin${isActive ? ' map-pin--active' : ''}">${priceLabel}</div>`,
+        html: `<div class="map-pin${isActive ? ' map-pin--active' : ''}">
+          <span class="map-pin__name">${shortName}</span>
+          ${priceStr ? `<span class="map-pin__price">${priceStr}</span>` : ''}
+        </div>`,
         iconSize: [1, 1],
         iconAnchor: [0, 0],
       })
 
       const marker = L.marker([salon.lat, salon.lng], { icon }).addTo(map)
 
-      // Click → toggle active
-      marker.on('click', () =>
-        onSelectRef.current(salon.id === activeId ? null : salon.id)
-      )
+      // Click → highlight in sidebar + navigate to salon details
+      marker.on('click', () => {
+        onSelectRef.current(salon.id)
+        navigateRef.current(`/salons/${salon.id}`)
+      })
 
       // Hover on the pin itself → show name + price popup
       marker.on('mouseover', () => {

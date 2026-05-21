@@ -26,7 +26,20 @@
       "Bash(curl -s -o /dev/null -w \"frontend HTTP %{http_code}\\\\n\" http://localhost:5173/)",
       "Bash(curl -s -o /dev/null -w \"proxied /api HTTP %{http_code}\\\\n\" \"http://localhost:5173/api/salons/beauty-technicians\")",
       "Bash(node -e ' *)",
-      "Bash(npx vite *)"
+      "Bash(npx vite *)",
+      "WebFetch(domain:booksy.com)",
+      "Bash(git --version)",
+      "Bash(bash --version)",
+      "Bash(brew --version)",
+      "Bash(/opt/homebrew/bin/bash --version)",
+      "Bash(ls -la /opt/homebrew/bin/brew /opt/homebrew/bin/bash /usr/local/bin/brew /usr/local/bin/bash 2>&1 | grep -v \"No such\")",
+      "Bash(/opt/homebrew/bin/brew --version)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -s http://localhost:5001/api/salons/the-fade-room)",
+      "Bash(python3 -m json.tool)",
+      "Bash(node src/server.js)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d['name'], d['type']\\)\")",
+      "Bash(node --check \"/Users/davida/Desktop/mojo life booking/backend/src/server.js\")"
     ]
   }
 }
