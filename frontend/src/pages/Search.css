@@ -24,7 +24,13 @@
   flex-wrap: wrap;
 }
 
-.search-page__header h1 { margin: 0; }
+.search-page__header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
 
 .search-page__layout {
   display: grid;
