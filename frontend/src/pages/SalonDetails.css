@@ -303,6 +303,72 @@
 .hours-list li { display: flex; justify-content: space-between; gap: 12px; }
 .policy-list strong { font-weight: 600; }
 
+/* Freelance solo profile */
+.freelance-profile {
+  display: flex;
+  gap: var(--s-8);
+  align-items: flex-start;
+  margin-top: var(--s-6);
+  padding: var(--s-6);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.freelance-profile__img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 3px solid var(--line);
+}
+
+.freelance-profile__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.freelance-profile__name {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--ink-900);
+}
+
+.freelance-profile__role {
+  font-size: 14px;
+  color: var(--ink-500);
+}
+
+.freelance-profile__meta {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.freelance-profile__specialties {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+  .freelance-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .freelance-profile__meta,
+  .freelance-profile__specialties {
+    justify-content: center;
+  }
+}
+
 @media (max-width: 900px) {
   .salon-layout { grid-template-columns: 1fr; }
   .salon-aside { position: static; }

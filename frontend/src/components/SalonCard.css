@@ -59,6 +59,12 @@
   border-color: rgba(255, 255, 255, 0.18);
 }
 
+.salon-card__type-badge--freelance {
+  background: rgba(22, 101, 52, 0.85);
+  color: #bbf7d0;
+  border-color: rgba(187, 247, 208, 0.25);
+}
+
 .salon-card__body {
   padding: var(--s-5);
   display: flex;

@@ -43,9 +43,16 @@ export default function SalonDetails() {
 
   const startingPrice = Math.min(...(salon.featuredServices || []).map((s) => s.price))
   const gallery = salon.gallery?.length ? salon.gallery : [salon.image]
+  const isFreelance = salon.type === 'freelance'
 
   const startBookingWith = (stylist) => {
     navigate(`/salons/${salon.id}/book`, { state: { salon, stylist } })
+  }
+
+  // For freelancers, auto-jump to booking with the solo stylist
+  const bookNow = () => {
+    const solo = salon.stylists?.[0]
+    navigate(`/salons/${salon.id}/book`, { state: { salon, stylist: solo } })
   }
 
   return (
@@ -54,8 +61,13 @@ export default function SalonDetails() {
         <nav className="breadcrumb" aria-label="Breadcrumb">
           <Link to="/">Home</Link>
           <span aria-hidden="true">›</span>
-          <Link to={salon.type === 'barbershop' ? '/search?type=barbershop' : '/search?type=salon'}>
-            {salon.type === 'barbershop' ? 'Barbershops' : 'Hair Salons'}
+          <Link to={
+            salon.type === 'barbershop' ? '/search?type=barbershop' :
+            salon.type === 'freelance'  ? '/search?type=freelance'  :
+            '/search?type=salon'
+          }>
+            {salon.type === 'barbershop' ? 'Barbershops' :
+             salon.type === 'freelance'  ? 'Freelance'   : 'Hair Salons'}
           </Link>
           <span aria-hidden="true">›</span>
           <span>{salon.name}</span>
@@ -93,7 +105,11 @@ export default function SalonDetails() {
               <span className="text-muted">{salon.address}</span>
             </div>
             <div className="salon-header__badges">
-              <span className="chip"><span className="chip__dot chip__dot--green" /> Open until 7:00 PM</span>
+              {isFreelance ? (
+                <span className="chip">📍 Mobile service</span>
+              ) : (
+                <span className="chip"><span className="chip__dot chip__dot--green" /> Open until 7:00 PM</span>
+              )}
               <span className="chip">MoMo accepted</span>
               <span className="chip">Free cancellation 24h+</span>
             </div>
@@ -101,7 +117,10 @@ export default function SalonDetails() {
           <div className="salon-header__cta">
             <span className="text-muted" style={{ fontSize: 13 }}>From</span>
             <strong className="salon-header__price">{formatPrice(startingPrice)}</strong>
-            <a href="#stylists" className="btn btn-primary btn-lg">Book an appointment</a>
+            {isFreelance
+              ? <button type="button" className="btn btn-primary btn-lg" onClick={bookNow}>Book now</button>
+              : <a href="#stylists" className="btn btn-primary btn-lg">Book an appointment</a>
+            }
             <p className="text-muted" style={{ fontSize: 12, marginTop: 8, lineHeight: 1.4 }}>
               {salon.depositPercent}% deposit via MoMo · Balance at the salon
             </p>
@@ -116,36 +135,64 @@ export default function SalonDetails() {
             </section>
 
             <section className="salon-section" id="stylists">
-              <div className="salon-section__head">
-                <h2>Meet the team</h2>
-                <span className="text-muted">
-                  {salon.type === 'barbershop' ? 'Pick a barber to start booking' : 'Pick a stylist to start booking'}
-                </span>
-              </div>
-              <div className="stylist-grid">
-                {salon.stylists.map((st) => (
-                  <button
-                    key={st.id}
-                    type="button"
-                    className="stylist-card"
-                    onClick={() => startBookingWith(st)}
-                  >
-                    <img src={st.image} alt={st.name} />
-                    <div className="stylist-card__body">
-                      <div className="stylist-card__name">{st.name}</div>
-                      <div className="stylist-card__role">{st.role}</div>
-                      <div className="stylist-card__rating">
-                        <RatingStars rating={st.rating} size="sm" showNumber />
-                        <span className="text-muted" style={{ fontSize: 12 }}>· {st.yearsExp}y exp</span>
-                      </div>
-                      <div className="stylist-card__specialties">
-                        {st.specialties.slice(0, 2).map((s) => <span key={s} className="chip">{s}</span>)}
+              {isFreelance ? (() => {
+                const solo = salon.stylists?.[0]
+                return solo ? (
+                  <>
+                    <h2>About {solo.name}</h2>
+                    <div className="freelance-profile">
+                      <img src={solo.image} alt={solo.name} className="freelance-profile__img" />
+                      <div className="freelance-profile__body">
+                        <div className="freelance-profile__name">{solo.name}</div>
+                        <div className="freelance-profile__role">{solo.role}</div>
+                        <div className="freelance-profile__meta">
+                          <RatingStars rating={solo.rating} size="sm" showNumber />
+                          <span className="text-muted" style={{ fontSize: 13 }}>· {solo.yearsExp}y experience</span>
+                        </div>
+                        <div className="freelance-profile__specialties">
+                          {solo.specialties.map((s) => <span key={s} className="chip">{s}</span>)}
+                        </div>
+                        <button type="button" className="btn btn-primary" onClick={bookNow} style={{ marginTop: 20 }}>
+                          Book with {solo.name} →
+                        </button>
                       </div>
                     </div>
-                    <span className="stylist-card__arrow" aria-hidden="true">→</span>
-                  </button>
-                ))}
-              </div>
+                  </>
+                ) : null
+              })() : (
+                <>
+                  <div className="salon-section__head">
+                    <h2>Meet the team</h2>
+                    <span className="text-muted">
+                      {salon.type === 'barbershop' ? 'Pick a barber to start booking' : 'Pick a stylist to start booking'}
+                    </span>
+                  </div>
+                  <div className="stylist-grid">
+                    {salon.stylists.map((st) => (
+                      <button
+                        key={st.id}
+                        type="button"
+                        className="stylist-card"
+                        onClick={() => startBookingWith(st)}
+                      >
+                        <img src={st.image} alt={st.name} />
+                        <div className="stylist-card__body">
+                          <div className="stylist-card__name">{st.name}</div>
+                          <div className="stylist-card__role">{st.role}</div>
+                          <div className="stylist-card__rating">
+                            <RatingStars rating={st.rating} size="sm" showNumber />
+                            <span className="text-muted" style={{ fontSize: 12 }}>· {st.yearsExp}y exp</span>
+                          </div>
+                          <div className="stylist-card__specialties">
+                            {st.specialties.slice(0, 2).map((s) => <span key={s} className="chip">{s}</span>)}
+                          </div>
+                        </div>
+                        <span className="stylist-card__arrow" aria-hidden="true">→</span>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </section>
 
             <section className="salon-section" id="services">

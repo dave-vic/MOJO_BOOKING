@@ -407,3 +407,20 @@
   .booking__layout { grid-template-columns: 1fr; }
   .booking__summary { position: static; }
 }
+
+/* Real availability slots */
+.slots-loading {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.slots-empty {
+  margin-top: 12px;
+  font-size: 14px;
+  padding: 16px;
+  background: var(--bg-soft);
+  border-radius: var(--r-sm);
+  text-align: center;
+}

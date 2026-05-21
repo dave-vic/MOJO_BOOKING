@@ -3,7 +3,7 @@ import RatingStars from './RatingStars.jsx'
 import { formatPrice } from '../api.js'
 import './SalonCard.css'
 
-const TYPE_LABEL = { barbershop: 'Barbershop', salon: 'Hair Salon' }
+const TYPE_LABEL = { barbershop: 'Barbershop', salon: 'Hair Salon', freelance: 'Freelance' }
 
 export default function SalonCard({ salon }) {
   const startingPrice =
@@ -12,6 +12,7 @@ export default function SalonCard({ salon }) {
       : null
 
   const isBarber = salon.type === 'barbershop'
+  const isFreelance = salon.type === 'freelance'
 
   return (
     <Link to={`/salons/${salon.id}`} className="salon-card card fade-in">
@@ -19,8 +20,12 @@ export default function SalonCard({ salon }) {
         <img src={salon.image} alt={salon.name} loading="lazy" />
         <span className="salon-card__area chip">{salon.area}</span>
         {salon.type && (
-          <span className={`salon-card__type-badge${isBarber ? ' salon-card__type-badge--barber' : ''}`}>
-            {isBarber ? (
+          <span className={`salon-card__type-badge${isBarber ? ' salon-card__type-badge--barber' : ''}${isFreelance ? ' salon-card__type-badge--freelance' : ''}`}>
+            {isFreelance ? (
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+              </svg>
+            ) : isBarber ? (
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M6 3 L6 15 A3 3 0 1 0 9 15 L9 3" />
                 <path d="M15 9 L21 15 A3 3 0 1 1 18 18 L12 12" />
@@ -42,7 +47,9 @@ export default function SalonCard({ salon }) {
           <h3 className="salon-card__name">{salon.name}</h3>
           <RatingStars rating={salon.rating} count={salon.reviewsCount} />
         </div>
-        <p className="salon-card__address text-muted">{salon.address}</p>
+        <p className="salon-card__address text-muted">
+          {isFreelance ? salon.tagline : salon.address}
+        </p>
 
         {salon.featuredServices?.length > 0 && (
           <ul className="salon-card__services">
@@ -64,7 +71,7 @@ export default function SalonCard({ salon }) {
             </span>
           )}
           <span className="salon-card__cta">
-            {isBarber ? 'Book a cut →' : 'View & book →'}
+            {isFreelance ? 'Book now →' : isBarber ? 'Book a cut →' : 'View & book →'}
           </span>
         </div>
       </div>

@@ -84,6 +84,32 @@ export default function Booking() {
     }
   }, [salon]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Pre-fill phone from auth user
+  useEffect(() => {
+    if (user?.phone) {
+      setForm((f) => ({ ...f, customerPhone: f.customerPhone || user.phone }))
+    }
+  }, [user])
+
+  // Fetch real availability when on time step
+  useEffect(() => {
+    if (!salon || !stylist || STEPS[stepIdx]?.id !== 'time') return
+    setSlotsLoading(true)
+    setAvailableSlots(null)
+    setTime(null)
+    api.getAvailability(salon.id, {
+      stylistId: stylist.id === 'any' ? undefined : stylist.id,
+      date,
+      serviceId: service?.id,
+    })
+      .then((data) => {
+        setAvailableSlots(data.slots || [])
+        if (data.slots?.length > 0) setTime(data.slots[0])
+      })
+      .catch(() => setAvailableSlots([]))
+      .finally(() => setSlotsLoading(false))
+  }, [salon, stylist, date, service, stepIdx]) // eslint-disable-line react-hooks/exhaustive-deps
+
   // Step nav
   const goTo = (idx) => setStepIdx(Math.min(STEPS.length - 1, Math.max(0, idx)))
   const next = () => goTo(stepIdx + 1)
@@ -168,6 +194,17 @@ export default function Booking() {
         <h2>Salon not available</h2>
         <Link to="/search" className="btn btn-primary" style={{ marginTop: 16 }}>Browse salons</Link>
       </div>
+    )
+  }
+
+  // ── Auth gate: require sign-in before booking ──────────────────
+  if (!isAuthenticated) {
+    return (
+      <AuthModal
+        message="Sign in to book your appointment."
+        onSuccess={() => {/* AuthProvider state update will re-render */}}
+        // No onClose — must sign in to continue
+      />
     )
   }
 
@@ -308,24 +345,43 @@ export default function Booking() {
                 </div>
 
                 <div className="booking__sub">
-                  <h4>Time</h4>
-                  <div className="time-grid">
-                    {TIME_SLOTS.map((t) => (
-                      <button
-                        type="button"
-                        key={t}
-                        onClick={() => setTime(t)}
-                        className={`time-pill ${t === time ? 'is-active' : ''}`}
-                      >
-                        {t}
-                      </button>
-                    ))}
-                  </div>
+                  <h4>Available times</h4>
+                  {slotsLoading ? (
+                    <div className="slots-loading">
+                      {[...Array(8)].map((_, i) => (
+                        <div key={i} className="skeleton" style={{ height: 40, borderRadius: 'var(--r-sm)' }} />
+                      ))}
+                    </div>
+                  ) : availableSlots === null ? null : availableSlots.length === 0 ? (
+                    <p className="slots-empty text-muted">
+                      No slots available on this date — try a different day.
+                    </p>
+                  ) : (
+                    <div className="time-grid">
+                      {availableSlots.map((t) => (
+                        <button
+                          type="button"
+                          key={t}
+                          onClick={() => setTime(t)}
+                          className={`time-pill ${t === time ? 'is-active' : ''}`}
+                        >
+                          {t}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="booking__nav">
                   <button type="button" className="btn btn-ghost" onClick={back}>Back</button>
-                  <button type="button" className="btn btn-primary" onClick={next}>Continue</button>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={next}
+                    disabled={!time}
+                  >
+                    Continue
+                  </button>
                 </div>
               </section>
             )}

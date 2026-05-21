@@ -129,6 +129,7 @@ export default function Search() {
                   { key: 'all',        label: 'All' },
                   { key: 'salon',      label: '✦ Hair Salons' },
                   { key: 'barbershop', label: '✂ Barbershops' },
+                  { key: 'freelance',  label: '👤 Freelance' },
                 ].map((t) => (
                   <button
                     key={t.key}
@@ -353,6 +354,25 @@ export default function Search() {
                 value={search}
                 onChange={(e) => setParam('search', e.target.value)}
               />
+            </div>
+
+            <div className="filters__group">
+              <h4>Type</h4>
+              <div className="filters__chips">
+                {[
+                  { key: 'all',        label: 'All' },
+                  { key: 'salon',      label: '✦ Hair Salons' },
+                  { key: 'barbershop', label: '✂ Barbershops' },
+                  { key: 'freelance',  label: '👤 Freelance' },
+                ].map((t) => (
+                  <button
+                    key={t.key}
+                    type="button"
+                    onClick={() => setParam('type', t.key)}
+                    className={`chip${type === t.key ? ' chip-active' : ''}`}
+                  >{t.label}</button>
+                ))}
+              </div>
             </div>
 
             <div className="filters__group">
