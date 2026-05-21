@@ -1,5 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = process.env.JWT_SECRET || 'mojo-dev-secret-change-in-prod';
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -28,7 +31,20 @@ function calcDeposit(price) {
 
 // ── Auth stores ────────────────────────────────────────────────
 const otpStore = new Map();   // phone → { otp, expiresAt }
-const sessions = new Map();   // token → { phone, createdAt }
+// sessions Map removed — JWT tokens are now stateless
+
+// Helper: parse Bearer token from request and return the phone, or throw
+function requireAuth(req) {
+  const auth = req.headers.authorization || '';
+  const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
+  if (!token) throw Object.assign(new Error('Not authenticated'), { status: 401 });
+  try {
+    const payload = jwt.verify(token, JWT_SECRET);
+    return payload.phone;
+  } catch {
+    throw Object.assign(new Error('Session expired — please sign in again'), { status: 401 });
+  }
+}
 
 // ── Helpers ───────────────────────────────────────────────────
 function normalizeGhanaPhone(raw) {
@@ -682,8 +698,7 @@ app.post('/api/auth/verify-otp', (req, res) => {
     return res.status(400).json({ message: 'Incorrect code. Try again.' });
 
   otpStore.delete(phone);
-  const token = `mj-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
-  sessions.set(token, { phone, createdAt: Date.now() });
+  const token = jwt.sign({ phone }, JWT_SECRET, { expiresIn: '90d' });
   res.json({ token, user: { phone } });
 });
 
@@ -818,15 +833,15 @@ app.post('/api/bookings', (req, res) => {
 
 // My bookings — authenticated user only
 app.get('/api/bookings/my', (req, res) => {
-  const auth = req.headers.authorization || '';
-  const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
-  if (!token) return res.status(401).json({ message: 'Not authenticated' });
-  const session = sessions.get(token);
-  if (!session) return res.status(401).json({ message: 'Session expired' });
-  const mine = bookings
-    .filter((b) => b.customerPhone === session.phone)
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  res.json(mine);
+  try {
+    const phone = requireAuth(req);
+    const mine = bookings
+      .filter((b) => b.customerPhone === phone)
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    res.json(mine);
+  } catch (err) {
+    res.status(err.status || 500).json({ message: err.message });
+  }
 });
 
 app.get('/api/bookings/:id', (req, res) => {

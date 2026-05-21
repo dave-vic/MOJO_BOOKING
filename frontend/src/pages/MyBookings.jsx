@@ -78,7 +78,7 @@ function BookingCard({ booking }) {
 }
 
 export default function MyBookings() {
-  const { isAuthenticated, user } = useAuth()
+  const { isAuthenticated, user, logout } = useAuth()
   const [bookings, setBookings] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -87,7 +87,14 @@ export default function MyBookings() {
     if (!isAuthenticated) return
     api.getMyBookings()
       .then(setBookings)
-      .catch((err) => setError(err.message))
+      .catch((err) => {
+        // Old mj-xxx token from before JWT migration — auto sign-out cleanly
+        if (err.status === 401) {
+          logout()
+        } else {
+          setError(err.message)
+        }
+      })
       .finally(() => setLoading(false))
   }, [isAuthenticated])
 
