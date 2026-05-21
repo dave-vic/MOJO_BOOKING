@@ -203,7 +203,7 @@ export default function Booking() {
       <AuthModal
         message="Sign in to book your appointment."
         onSuccess={() => {/* AuthProvider state update will re-render */}}
-        // No onClose — must sign in to continue
+        onClose={() => navigate(-1)}
       />
     )
   }
