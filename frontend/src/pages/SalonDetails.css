@@ -69,6 +69,14 @@
   flex-wrap: wrap;
 }
 
+.salon-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+
 .salon-header__meta {
   display: flex;
   gap: 12px;
@@ -381,6 +389,7 @@
 
   /* Header */
   .salon-header { flex-direction: column; gap: var(--s-5); }
+  .salon-header h1 { font-size: 22px; }
   .salon-header__cta { width: 100%; min-width: unset; box-sizing: border-box; }
   .salon-header__price { font-size: 24px; }
 
