@@ -213,6 +213,15 @@ export default function AuthModal({ onSuccess, onClose, message }) {
           </>
         )}
 
+        {phase === 'phone' && (
+          <p className="auth-modal__signup-note">
+            New here?{' '}
+            <span className="auth-modal__signup-highlight">
+              No sign-up needed — just enter your number and we'll create your account automatically.
+            </span>
+          </p>
+        )}
+
         <p className="auth-modal__terms">
           By continuing you agree to our{' '}
           <a href="#terms">Terms</a> and <a href="#privacy">Privacy Policy</a>

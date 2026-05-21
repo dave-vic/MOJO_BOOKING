@@ -229,6 +229,19 @@ p {
   font-size: 16px;
 }
 
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--line-strong);
+  color: var(--ink-700);
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.btn-outline:hover {
+  border-color: var(--ink-900);
+  color: var(--ink-900);
+  background: var(--bg-soft);
+}
+
 /* Cards */
 .card {
   background: var(--surface);

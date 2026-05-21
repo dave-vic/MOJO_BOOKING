@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext.jsx'
+import AuthModal from './AuthModal.jsx'
 import './Layout.css'
 
 /* Custom nav link — handles query-string aware active state */
@@ -36,7 +38,11 @@ const NAV_LINKS = [
 
 function Header() {
   const [open, setOpen] = useState(false)
+  const [showAuth, setShowAuth] = useState(false)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
   const { pathname } = useLocation()
+  const { isAuthenticated, user, logout } = useAuth()
+  const userMenuRef = useRef(null)
 
   // Close drawer on navigation
   useEffect(() => setOpen(false), [pathname])
@@ -46,6 +52,18 @@ function Header() {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [open])
+
+  // Close user menu on outside click
+  useEffect(() => {
+    if (!userMenuOpen) return
+    const handler = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setUserMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [userMenuOpen])
 
   return (
     <header className={`site-header${open ? ' nav-is-open' : ''}`}>
@@ -78,6 +96,47 @@ function Header() {
             For businesses
           </a>
           <span className="nav-sep" aria-hidden="true" />
+
+          {isAuthenticated ? (
+            <div className="nav-user" ref={userMenuRef}>
+              <button
+                type="button"
+                className="nav-user__btn"
+                onClick={() => setUserMenuOpen(o => !o)}
+                aria-expanded={userMenuOpen}
+                aria-label="Account menu"
+              >
+                <span className="nav-user__avatar">
+                  {(user?.name || user?.phone || '?')[0].toUpperCase()}
+                </span>
+                <span className="nav-user__name">
+                  {user?.name || 'My account'}
+                </span>
+                <svg className="nav-user__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M2 4l4 4 4-4"/>
+                </svg>
+              </button>
+              {userMenuOpen && (
+                <div className="nav-user__menu">
+                  <Link to="/bookings" className="nav-user__menu-item" onClick={() => setUserMenuOpen(false)}>
+                    My bookings
+                  </Link>
+                  <button type="button" className="nav-user__menu-item nav-user__menu-item--danger" onClick={() => { logout(); setUserMenuOpen(false) }}>
+                    Sign out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="btn btn-outline btn-nav"
+              onClick={() => setShowAuth(true)}
+            >
+              Sign in
+            </button>
+          )}
+
           <Link to="/search" className="btn btn-primary btn-nav">
             Book now
           </Link>
@@ -96,6 +155,14 @@ function Header() {
             <span className="nav-burger__line" />
           </button>
         </div>
+
+        {/* Auth modal */}
+        {showAuth && (
+          <AuthModal
+            onSuccess={() => setShowAuth(false)}
+            onClose={() => setShowAuth(false)}
+          />
+        )}
       </div>
 
       {/* ── Mobile drawer ── */}
@@ -117,6 +184,34 @@ function Header() {
           <a href="#join" className="nav-drawer__biz" onClick={() => setOpen(false)}>
             For businesses
           </a>
+
+          {isAuthenticated ? (
+            <>
+              <div className="nav-drawer__user">
+                <span className="nav-user__avatar nav-user__avatar--sm">
+                  {(user?.name || user?.phone || '?')[0].toUpperCase()}
+                </span>
+                <span className="nav-drawer__user-name">
+                  {user?.name || user?.phone || 'My account'}
+                </span>
+              </div>
+              <button
+                type="button"
+                className="nav-drawer__signout"
+                onClick={() => { logout(); setOpen(false) }}
+              >
+                Sign out
+              </button>
+            </>
+          ) : (
+            <button
+              type="button"
+              className="btn btn-outline nav-drawer__cta"
+              onClick={() => { setShowAuth(true); setOpen(false) }}
+            >
+              Sign in
+            </button>
+          )}
 
           <Link
             to="/search"
