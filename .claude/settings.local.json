@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(PORT=4000 node src/server.js)",
+      "Bash(curl -s http://localhost:4000/api/health)",
+      "Bash(curl -s \"http://localhost:4000/api/salons?sort=rating\")",
+      "Bash(curl -s \"http://localhost:4000/api/categories\")",
+      "Bash(rm -f src/App.css src/assets/hero.png src/assets/react.svg src/assets/vite.svg)",
+      "Bash(rmdir src/assets)",
+      "Bash(PORT=5001 node src/server.js)",
+      "Bash(curl -s http://localhost:5001/api/salons)",
+      "Bash(curl -s http://localhost:5001/api/salons/kai-beauty-studio)",
+      "Bash(curl -s -X POST http://localhost:5001/api/bookings -H \"Content-Type: application/json\" -d '{\"salonId\":\"kai-beauty-studio\",\"serviceName\":\"Home Service Hair Care\",\"price\":1200,\"date\":\"2026-05-21\",\"time\":\"10:00\",\"customerName\":\"Test User\",\"customerEmail\":\"t@test.com\",\"customerPhone\":\"+233200000000\"}')",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:5173/)",
+      "Bash(curl -s -o /dev/null -w \"Proxied /api HTTP %{http_code}\\\\n\" http://localhost:5173/api/salons)",
+      "Read(//private/tmp/mojo_doc/**)",
+      "Bash(python3 -c ' *)",
+      "WebFetch(domain:www.fresha.com)",
+      "Bash(lsof -ti:5001)",
+      "Bash(xargs kill -9)",
+      "Bash(lsof -ti:5173)",
+      "Bash(npm install *)",
+      "Bash(curl -s http://localhost:5001/api/salons/beauty-technicians)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('stylists:', [s['name'] for s in d['stylists']]\\); print\\('policy windows:', [p['window'] for p in d['cancellationPolicy']['description']]\\); print\\('first service deposit:', d['featuredServices'][0]['depositAmount'], 'on', d['featuredServices'][0]['price']\\)\")",
+      "Bash(curl -s -o /dev/null -w \"frontend HTTP %{http_code}\\\\n\" http://localhost:5173/)",
+      "Bash(curl -s -o /dev/null -w \"proxied /api HTTP %{http_code}\\\\n\" \"http://localhost:5173/api/salons/beauty-technicians\")",
+      "Bash(node -e ' *)",
+      "Bash(npx vite *)"
+    ]
+  }
+}

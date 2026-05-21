@@ -1,0 +1,120 @@
+.salon-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+}
+
+.salon-card__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--bg-soft);
+}
+
+.salon-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.salon-card:hover .salon-card__media img {
+  transform: scale(1.05);
+}
+
+.salon-card__area {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  border: none;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.salon-card__body {
+  padding: var(--s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  flex: 1;
+}
+
+.salon-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--s-3);
+}
+
+.salon-card__name {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.salon-card__address {
+  font-size: 13px;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.salon-card__services {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  border-top: 1px dashed var(--line);
+  padding-top: var(--s-3);
+}
+
+.salon-card__services li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.salon-card__service-name {
+  color: var(--ink-700);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.salon-card__service-meta {
+  color: var(--ink-500);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.salon-card__footer {
+  margin-top: auto;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.salon-card__from { color: var(--ink-500); }
+.salon-card__from strong { color: var(--ink-900); }
+
+.salon-card__cta {
+  color: var(--brand-500);
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.salon-card:hover .salon-card__cta {
+  transform: translateX(2px);
+}

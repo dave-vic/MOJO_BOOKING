@@ -1,0 +1,309 @@
+.salon-details {
+  padding-block: var(--s-8) var(--s-16);
+}
+
+.salon-loading {
+  padding-block: var(--s-8);
+}
+
+/* Gallery */
+.gallery {
+  margin-top: var(--s-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.gallery__main {
+  position: relative;
+  aspect-ratio: 21 / 9;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+}
+
+.gallery__main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery__area {
+  position: absolute;
+  top: var(--s-5);
+  left: var(--s-5);
+  background: rgba(255,255,255,0.95);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.gallery__thumbs {
+  display: flex;
+  gap: 8px;
+}
+
+.gallery__thumb {
+  flex: 0 0 110px;
+  height: 70px;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  border: 2px solid transparent;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.gallery__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.gallery__thumb.is-active { border-color: var(--ink-900); }
+
+/* Header */
+.salon-header {
+  margin-top: var(--s-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--s-8);
+  flex-wrap: wrap;
+}
+
+.salon-header__meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.salon-header__badges {
+  margin-top: var(--s-4);
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.chip__dot--green { background: var(--success); }
+
+.salon-header__cta {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--s-5) var(--s-6);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 280px;
+  box-shadow: var(--shadow-sm);
+}
+
+.salon-header__price {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--ink-900);
+  margin-bottom: 12px;
+}
+
+.salon-header__cta .btn { width: 100%; }
+
+/* Layout */
+.salon-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: var(--s-12);
+  margin-top: var(--s-12);
+  align-items: start;
+}
+
+.salon-section {
+  margin-bottom: var(--s-12);
+}
+
+.salon-section h2 { font-size: 28px; }
+
+.salon-section__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-4);
+  margin-bottom: var(--s-5);
+  flex-wrap: wrap;
+}
+
+/* Stylist grid */
+.stylist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s-4);
+}
+
+.stylist-card {
+  display: flex;
+  align-items: stretch;
+  gap: var(--s-4);
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--s-4);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  width: 100%;
+}
+
+.stylist-card:hover {
+  border-color: var(--plum-700);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.stylist-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.stylist-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.stylist-card__name { font-weight: 600; font-size: 16px; }
+.stylist-card__role { font-size: 13px; color: var(--ink-500); }
+.stylist-card__rating { display: flex; gap: 6px; align-items: center; margin-top: 2px; }
+.stylist-card__specialties { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+.stylist-card__specialties .chip { font-size: 11px; padding: 3px 8px; }
+
+.stylist-card__arrow {
+  align-self: center;
+  color: var(--ink-500);
+  font-size: 22px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.stylist-card:hover .stylist-card__arrow {
+  transform: translateX(4px);
+  color: var(--plum-700);
+}
+
+@media (max-width: 700px) {
+  .stylist-grid { grid-template-columns: 1fr; }
+}
+
+/* Services */
+.service-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--s-5) 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.service-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--s-5) 0;
+  border-bottom: 1px solid var(--line);
+  gap: var(--s-5);
+}
+
+.service-row__name { font-weight: 600; font-size: 16px; color: var(--ink-900); }
+.service-row__meta { color: var(--ink-500); font-size: 13px; margin-top: 4px; }
+
+.service-row__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+}
+
+.service-row__pricing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.service-row__price { font-family: var(--font-display); font-size: 22px; color: var(--ink-900); }
+.service-row__deposit { font-size: 12px; }
+
+@media (max-width: 600px) {
+  .service-row { flex-wrap: wrap; gap: var(--s-3); }
+  .service-row__actions { width: 100%; justify-content: space-between; }
+}
+
+/* Reviews */
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--s-6) 0 0;
+  display: grid;
+  gap: var(--s-5);
+}
+
+.review {
+  padding: var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: #fff;
+}
+
+.review__head { display: flex; align-items: center; gap: var(--s-3); }
+.review__avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--plum-700), var(--brand-500));
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+.review__author { font-weight: 600; font-size: 15px; }
+.review__date { font-size: 12px; color: var(--ink-500); }
+.review__body { margin-top: var(--s-3); color: var(--ink-700); font-size: 15px; line-height: 1.55; }
+
+/* Aside */
+.salon-aside { position: sticky; top: 90px; }
+.salon-aside__card { padding: var(--s-6); }
+.salon-aside__card h3 {
+  font-size: 17px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.salon-aside__divider {
+  height: 1px;
+  background: var(--line);
+  margin-block: var(--s-5);
+}
+
+.policy-list,
+.hours-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--s-3) 0 0;
+  font-size: 14px;
+  display: grid;
+  gap: 6px;
+}
+.policy-list li,
+.hours-list li { display: flex; justify-content: space-between; gap: 12px; }
+.policy-list strong { font-weight: 600; }
+
+@media (max-width: 900px) {
+  .salon-layout { grid-template-columns: 1fr; }
+  .salon-aside { position: static; }
+}

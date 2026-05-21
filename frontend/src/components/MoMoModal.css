@@ -1,0 +1,223 @@
+.momo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+.momo-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 10, 30, 0.4);
+  backdrop-filter: blur(4px);
+  border: none;
+  cursor: pointer;
+}
+
+.momo-modal__sheet {
+  position: relative;
+  background: #fff;
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  padding: var(--s-8) var(--s-6);
+  width: 100%;
+  max-width: 480px;
+  margin-bottom: 0;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+@media (min-width: 600px) {
+  .momo-modal {
+    align-items: center;
+    padding: var(--s-6);
+  }
+  .momo-modal__sheet {
+    border-radius: var(--r-xl);
+    margin-bottom: 0;
+  }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.momo-modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: var(--s-5);
+}
+
+.momo-modal__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--ink-900);
+  line-height: 1.2;
+}
+
+.momo-modal__subtitle {
+  font-size: 13px;
+  color: var(--ink-500);
+  margin-top: 4px;
+}
+
+.momo-modal__close {
+  background: var(--bg-soft);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--ink-500);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.momo-modal__providers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: var(--s-5);
+}
+
+.momo-provider {
+  --accent: var(--ink-500);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  position: relative;
+}
+
+.momo-provider input { position: absolute; opacity: 0; pointer-events: none; }
+
+.momo-provider:hover { border-color: var(--ink-700); }
+
+.momo-provider.is-selected {
+  border-color: var(--ink-900);
+  background: var(--bg-soft);
+}
+
+.momo-provider__dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.momo-modal__summary {
+  margin-top: var(--s-5);
+  padding: var(--s-4) var(--s-5);
+  background: var(--bg-soft);
+  border-radius: var(--r-md);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.momo-modal__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.momo-modal__row--total {
+  padding-top: 8px;
+  margin-top: 4px;
+  border-top: 1px solid var(--line-strong);
+  font-family: var(--font-display);
+  font-size: 18px;
+}
+
+.momo-modal__legal {
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--ink-500);
+  line-height: 1.45;
+  text-align: center;
+}
+
+.momo-modal__legal a {
+  color: var(--ink-700);
+  text-decoration: underline;
+}
+
+.momo-modal__error {
+  background: rgba(192, 57, 43, 0.08);
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  color: var(--danger);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+/* Pending state */
+.momo-modal__pending {
+  text-align: center;
+  padding-block: var(--s-6);
+}
+
+.momo-modal__spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 4px solid var(--bg-soft);
+  border-top-color: var(--plum-700);
+  margin: 0 auto var(--s-5);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.momo-modal__hint {
+  margin-top: var(--s-5);
+  padding: 10px 14px;
+  background: var(--bg-soft);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  color: var(--ink-700);
+}
+
+.momo-modal__hint code {
+  font-family: ui-monospace, monospace;
+  background: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+}
+
+.momo-modal__failed {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(192, 57, 43, 0.12);
+  color: var(--danger);
+  font-size: 28px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--s-5);
+}
