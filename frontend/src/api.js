@@ -47,6 +47,8 @@ export const api = {
     request('/bookings/lock', { method: 'POST', body: JSON.stringify(payload) }),
   createBooking: (payload) =>
     request('/bookings', { method: 'POST', body: JSON.stringify(payload) }),
+  getMyBookings: () =>
+    request('/bookings/my'),
 
   // Auth
   sendOtp: (phone) =>

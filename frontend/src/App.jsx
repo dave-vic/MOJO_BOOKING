@@ -6,6 +6,7 @@ import Search from './pages/Search.jsx'
 import SalonDetails from './pages/SalonDetails.jsx'
 import Booking from './pages/Booking.jsx'
 import Confirmation from './pages/Confirmation.jsx'
+import MyBookings from './pages/MyBookings.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/salons/:id" element={<SalonDetails />} />
           <Route path="/salons/:id/book" element={<Booking />} />
           <Route path="/booking/:reference" element={<Confirmation />} />
+          <Route path="/bookings" element={<MyBookings />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

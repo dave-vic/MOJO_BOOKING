@@ -816,6 +816,19 @@ app.post('/api/bookings', (req, res) => {
   res.status(201).json(booking);
 });
 
+// My bookings — authenticated user only
+app.get('/api/bookings/my', (req, res) => {
+  const auth = req.headers.authorization || '';
+  const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
+  if (!token) return res.status(401).json({ message: 'Not authenticated' });
+  const session = sessions.get(token);
+  if (!session) return res.status(401).json({ message: 'Session expired' });
+  const mine = bookings
+    .filter((b) => b.customerPhone === session.phone)
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  res.json(mine);
+});
+
 app.get('/api/bookings/:id', (req, res) => {
   const booking = bookings.find((b) => b.id === req.params.id);
   if (!booking) return res.status(404).json({ message: 'Booking not found' });
