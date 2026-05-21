@@ -124,36 +124,42 @@ export default function Search() {
                 onChange={(e) => setParam('search', e.target.value)}
               />
               {/* Type filter */}
-              <div className="search-map-types">
-                {[
-                  { key: 'all',        label: 'All' },
-                  { key: 'salon',      label: '✦ Hair Salons' },
-                  { key: 'barbershop', label: '✂ Barbershops' },
-                  { key: 'freelance',  label: '👤 Freelance' },
-                ].map((t) => (
-                  <button
-                    key={t.key}
-                    type="button"
-                    onClick={() => setParam('type', t.key)}
-                    className={`chip${type === t.key ? ' chip-active' : ''}`}
-                  >{t.label}</button>
-                ))}
+              <div className="search-map-filter-group">
+                <span className="search-map-filter-label">Type</span>
+                <div className="search-map-types">
+                  {[
+                    { key: 'all',        label: 'All' },
+                    { key: 'salon',      label: '✦ Hair Salons' },
+                    { key: 'barbershop', label: '✂ Barbershops' },
+                    { key: 'freelance',  label: '👤 Freelance' },
+                  ].map((t) => (
+                    <button
+                      key={t.key}
+                      type="button"
+                      onClick={() => setParam('type', t.key)}
+                      className={`chip${type === t.key ? ' chip-active' : ''}`}
+                    >{t.label}</button>
+                  ))}
+                </div>
               </div>
               {/* Area filter */}
-              <div className="search-map-areas">
-                <button
-                  type="button"
-                  onClick={() => setParam('area', 'All')}
-                  className={`chip${area === 'All' ? ' chip-active' : ''}`}
-                >All areas</button>
-                {allAreas.map((a) => (
+              <div className="search-map-filter-group">
+                <span className="search-map-filter-label">Area</span>
+                <div className="search-map-areas">
                   <button
-                    key={a}
                     type="button"
-                    onClick={() => setParam('area', a)}
-                    className={`chip${area === a ? ' chip-active' : ''}`}
-                  >{a}</button>
-                ))}
+                    onClick={() => setParam('area', 'All')}
+                    className={`chip${area === 'All' ? ' chip-active' : ''}`}
+                  >All areas</button>
+                  {allAreas.map((a) => (
+                    <button
+                      key={a}
+                      type="button"
+                      onClick={() => setParam('area', a)}
+                      className={`chip${area === a ? ' chip-active' : ''}`}
+                    >{a}</button>
+                  ))}
+                </div>
               </div>
             </div>
 

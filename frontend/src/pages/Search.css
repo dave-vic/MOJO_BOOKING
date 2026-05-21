@@ -141,29 +141,74 @@
 }
 
 .search-map-topbar {
-  padding: var(--s-4) var(--s-4) 0;
+  padding: var(--s-4) var(--s-4) var(--s-4);
   display: flex;
   flex-direction: column;
-  gap: var(--s-2);
+  gap: 0;
   border-bottom: 1px solid var(--line);
-  padding-bottom: var(--s-4);
 }
 
 .search-map-input {
   width: 100%;
+  margin-bottom: var(--s-3);
 }
 
+/* Group wrapper for each filter section */
+.search-map-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--s-3) 0;
+}
+
+/* Divider between type and area groups */
+.search-map-filter-group + .search-map-filter-group {
+  border-top: 1px solid var(--line);
+}
+
+/* Small label above each group */
+.search-map-filter-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+/* Type chips row — all on one line, no wrap */
+.search-map-types {
+  display: flex;
+  gap: 5px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.search-map-types::-webkit-scrollbar { display: none; }
+
+.search-map-types .chip {
+  cursor: pointer;
+  border: 1px solid var(--line);
+  font-size: 11.5px;
+  padding: 4px 9px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+.search-map-types .chip:hover { border-color: var(--ink-900); }
+
+/* Area chips — wrap normally */
 .search-map-areas {
   display: flex;
-  gap: 6px;
+  gap: 5px;
   flex-wrap: wrap;
 }
 
 .search-map-areas .chip {
   cursor: pointer;
   border: 1px solid var(--line);
-  font-size: 12px;
-  padding: 4px 10px;
+  font-size: 11.5px;
+  padding: 4px 9px;
   transition: all 0.15s ease;
 }
 
