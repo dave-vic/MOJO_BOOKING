@@ -31,8 +31,8 @@
   --danger: #c0392b;
 
   /* Type */
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Sora', system-ui, -apple-system, sans-serif;
 
   /* Radii */
   --r-xs: 6px;
@@ -112,26 +112,29 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-900);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
   margin: 0;
 }
 
 h1 {
-  font-size: clamp(40px, 5.4vw, 68px);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+  font-size: clamp(38px, 5.2vw, 64px);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  font-weight: 800;
 }
 
 h2 {
-  font-size: clamp(28px, 3.2vw, 40px);
-  line-height: 1.1;
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
 }
 
 h3 {
-  font-size: 22px;
-  line-height: 1.25;
+  font-size: 21px;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
 }
 
 p {

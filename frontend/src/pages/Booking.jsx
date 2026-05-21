@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { api, formatPrice } from '../api.js'
 import RatingStars from '../components/RatingStars.jsx'
 import MoMoModal from '../components/MoMoModal.jsx'
+import AuthModal from '../components/AuthModal.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 import './Booking.css'
 
 const STEPS = [
@@ -12,14 +14,9 @@ const STEPS = [
   { id: 'review', label: 'Review' },
 ]
 
-const TIME_SLOTS = [
-  '09:00','09:30','10:00','10:30','11:00','11:30',
-  '12:00','13:00','14:00','14:30','15:00','15:30',
-  '16:00','16:30','17:00','18:00',
-]
-
 function nextDates(count = 7) {
-  const today = new Date('2026-05-20')
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
   return Array.from({ length: count }, (_, i) => {
     const d = new Date(today)
     d.setDate(today.getDate() + i)
@@ -34,6 +31,7 @@ export default function Booking() {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
+  const { isAuthenticated, user } = useAuth()
 
   const [salon, setSalon] = useState(location.state?.salon || null)
   const [loading, setLoading] = useState(!salon)
@@ -45,8 +43,14 @@ export default function Booking() {
 
   const dates = useMemo(() => nextDates(7), [])
   const [date, setDate] = useState(fmtDate(dates[1]))
-  const [time, setTime] = useState('10:00')
-  const [form, setForm] = useState({ customerName: '', customerEmail: '', customerPhone: '' })
+  const [time, setTime] = useState(null)
+  const [availableSlots, setAvailableSlots] = useState(null)   // null = not loaded yet
+  const [slotsLoading, setSlotsLoading] = useState(false)
+  const [form, setForm] = useState({
+    customerName: '',
+    customerEmail: '',
+    customerPhone: user?.phone || '',
+  })
 
   const [lock, setLock] = useState(null)
   const [secondsLeft, setSecondsLeft] = useState(0)
