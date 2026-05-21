@@ -408,6 +408,36 @@
   .booking__summary { position: static; }
 }
 
+@media (max-width: 700px) {
+  /* Reduce panel padding on mobile */
+  .booking__panel { padding: var(--s-5); }
+  .booking__panel-head h2 { font-size: 20px; }
+
+  /* Stepper — show only number + short label, no overflow */
+  .stepper { gap: var(--s-1); }
+  .stepper__item { padding: 7px 10px; font-size: 13px; gap: 6px; }
+
+  /* Service option — stack price below name on tiny screens */
+  .service-option { flex-wrap: wrap; }
+  .service-option__price { font-size: 18px; }
+
+  /* Booking nav buttons full width on mobile */
+  .booking__nav { flex-direction: column-reverse; gap: var(--s-3); }
+  .booking__nav .btn { width: 100%; justify-content: center; padding: 14px; font-size: 16px; }
+
+  /* Summary card padding */
+  .booking-summary { padding: var(--s-4); }
+}
+
+@media (max-width: 400px) {
+  /* Very small phones — 3 time columns instead of 4 */
+  .time-grid { grid-template-columns: repeat(3, 1fr); }
+  /* Date picker — 4 cols still fits */
+  .date-picker { grid-template-columns: repeat(4, 1fr); }
+  .date-pill { padding: 10px 4px; }
+  .date-pill__date { font-size: 18px; }
+}
+
 /* Real availability slots */
 .slots-loading {
   display: grid;
