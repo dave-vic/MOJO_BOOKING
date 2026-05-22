@@ -66,6 +66,7 @@ function Header() {
   }, [userMenuOpen])
 
   return (
+    <>
     <header className={`site-header${open ? ' nav-is-open' : ''}`}>
       <div className="container site-header__row">
 
@@ -156,13 +157,6 @@ function Header() {
           </button>
         </div>
 
-        {/* Auth modal */}
-        {showAuth && (
-          <AuthModal
-            onSuccess={() => setShowAuth(false)}
-            onClose={() => setShowAuth(false)}
-          />
-        )}
       </div>
 
       {/* ── Mobile drawer ── */}
@@ -223,6 +217,15 @@ function Header() {
         </div>
       </div>
     </header>
+
+    {/* Auth modal — rendered outside <header> so backdrop-filter doesn't trap it */}
+    {showAuth && (
+      <AuthModal
+        onSuccess={() => setShowAuth(false)}
+        onClose={() => setShowAuth(false)}
+      />
+    )}
+    </>
   )
 }
 
