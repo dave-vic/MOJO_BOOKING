@@ -275,20 +275,33 @@
 
 /* ─── Mobile ─────────────────────────────────────────────────── */
 @media (max-width: 480px) {
-  .auth-modal {
-    padding: 28px 20px 22px;
-    border-radius: var(--r-lg);
-    /* Ensure modal never overflows small screens */
-    max-height: 95dvh;
+  /* Backdrop scrolls instead of clipping — fixes top cut-off when
+     keyboard opens or modal is taller than the viewport */
+  .auth-backdrop {
+    align-items: flex-start;
     overflow-y: auto;
+    padding: 24px 16px 32px;
   }
-  /* Bigger touch target for close button on mobile */
+
+  .auth-modal {
+    padding: 28px 20px 24px;
+    border-radius: var(--r-lg);
+    /* Let the backdrop handle scrolling — no fixed height needed */
+    max-height: none;
+    overflow-y: visible;
+    /* Push down slightly so the top of the modal isn't flush with the screen edge */
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  /* Bigger touch target for close button */
   .auth-modal__close {
     width: 44px;
     height: 44px;
     top: 10px;
     right: 10px;
   }
+
   .otp-box {
     width: 42px;
     height: 52px;
