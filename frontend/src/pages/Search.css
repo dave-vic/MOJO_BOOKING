@@ -493,6 +493,44 @@
   overflow: hidden;
 }
 
+/* ─── Floating action button (mobile only) ─── */
+.search-fab {
+  display: none; /* hidden on desktop */
+}
+
+@media (max-width: 767px) {
+  /* Show FAB on mobile */
+  .search-fab {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 500;
+    background: var(--ink-900);
+    color: #fff;
+    border: none;
+    border-radius: var(--r-pill);
+    padding: 12px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .search-fab:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  }
+
+  /* Hide the desktop view toggle pill on mobile — FAB takes over */
+  .view-toggle { display: none; }
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 900px) {
   .search-page__layout { grid-template-columns: 1fr; }
@@ -500,7 +538,7 @@
 
   .search-map-layout {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 320px;
+    grid-template-rows: 1fr 280px;
     height: calc(100vh - 64px);
     height: calc(100dvh - 64px);
   }
@@ -511,10 +549,13 @@
     border-bottom: 1px solid var(--line);
     overflow: hidden;
   }
+
+  /* Hide filter topbar on mobile map view — saves ~140px for cards */
+  .search-map-topbar { display: none; }
 }
 
 @media (max-width: 560px) {
   .search-map-layout {
-    grid-template-rows: 1fr 240px;
+    grid-template-rows: 1fr 220px;
   }
 }

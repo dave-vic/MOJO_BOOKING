@@ -14,7 +14,10 @@ export default function Search() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [sort, setSort] = useState('rating')
-  const [viewMode, setViewMode] = useState('map') // 'grid' | 'map'
+  // Default to grid on mobile — map layout is too cramped on small screens
+  const [viewMode, setViewMode] = useState(() =>
+    typeof window !== 'undefined' && window.innerWidth < 768 ? 'grid' : 'map'
+  )
   const [mapTab, setMapTab] = useState('salons')    // 'salons' | 'stylists'
   const [activeId, setActiveId] = useState(null)      // active salon id on map
   const [hoveredPopup, setHoveredPopup] = useState(null) // { salonId, html }
@@ -321,6 +324,16 @@ export default function Search() {
               onSelect={setActiveId}
               hoveredPopup={hoveredPopup}
             />
+            {/* Floating "Show list" button — mobile only */}
+            <button
+              type="button"
+              className="search-fab search-fab--list"
+              onClick={() => setViewMode('grid')}
+              aria-label="Show list"
+            >
+              <LayoutGrid size={16} strokeWidth={2.2} />
+              Show list
+            </button>
           </div>
         </div>
       </div>
@@ -454,6 +467,17 @@ export default function Search() {
           </section>
         </div>
       </div>
+
+      {/* Floating "Show map" button — mobile only */}
+      <button
+        type="button"
+        className="search-fab search-fab--map"
+        onClick={() => setViewMode('map')}
+        aria-label="Show map"
+      >
+        <MapIcon size={16} strokeWidth={2.2} />
+        Show map
+      </button>
     </div>
   )
 }
