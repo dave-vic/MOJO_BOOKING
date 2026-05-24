@@ -319,11 +319,13 @@
   border: 1.5px solid var(--line);
   border-radius: var(--r-md);
   background: #fff;
+  color: var(--ink-900);
   cursor: pointer;
   transition: all 0.15s ease;
   text-align: left;
   width: 100%;
   position: relative;
+  -webkit-appearance: none;
 }
 
 .map-salon-card:hover {
@@ -400,10 +402,12 @@
   border: 1.5px solid var(--line);
   border-radius: var(--r-md);
   background: #fff;
+  color: var(--ink-900);
   cursor: pointer;
   transition: all 0.15s ease;
   text-align: left;
   width: 100%;
+  -webkit-appearance: none;
 }
 
 .map-stylist-card:hover {
