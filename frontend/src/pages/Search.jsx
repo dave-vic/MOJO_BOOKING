@@ -119,21 +119,24 @@ export default function Search() {
           {/* ── Left sidebar / bottom sheet ── */}
           <div className={`search-map-sidebar${sheetExpanded ? ' is-expanded' : ''}`}>
 
-            {/* Bottom-sheet handle — mobile only */}
-            <button
-              type="button"
-              className="sheet-handle-btn"
-              onClick={() => setSheetExpanded(e => !e)}
-              aria-label={sheetExpanded ? 'Collapse list' : 'Expand list'}
-            >
+            {/* Bottom-sheet header — mobile only */}
+            <div className="sheet-header">
               <span className="sheet-handle-bar" />
-              <span className="sheet-handle-label">
-                {loading ? 'Searching…' : `${sortedSalons.length} venue${sortedSalons.length !== 1 ? 's' : ''} nearby`}
-              </span>
-              <svg className={`sheet-handle-chevron${sheetExpanded ? ' is-up' : ''}`} width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-                <path d="M4 6l4 4 4-4"/>
-              </svg>
-            </button>
+              <div className="sheet-header-row">
+                <button
+                  type="button"
+                  className="sheet-header-count"
+                  onClick={() => setSheetExpanded(e => !e)}
+                  aria-label={sheetExpanded ? 'Collapse list' : 'Expand list'}
+                >
+                  <svg className={`sheet-handle-chevron${sheetExpanded ? ' is-up' : ''}`} width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                    <path d="M4 6l4 4 4-4"/>
+                  </svg>
+                  {loading ? 'Searching…' : `${sortedSalons.length} venue${sortedSalons.length !== 1 ? 's' : ''} nearby`}
+                </button>
+                {viewToggle}
+              </div>
+            </div>
 
             {/* Compact filter bar */}
             <div className="search-map-topbar">

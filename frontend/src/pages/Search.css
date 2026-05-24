@@ -527,14 +527,36 @@
     box-shadow: 0 8px 28px rgba(0,0,0,0.35);
   }
 
-  /* Hide the desktop view toggle pill on mobile — FAB takes over */
-  .view-toggle { display: none; }
 }
 
-/* ─── Sheet handle (bottom-sheet handle bar) ─── */
-.sheet-handle-btn {
+/* ─── Sheet header (bottom-sheet) ─── */
+.sheet-header {
   display: none; /* desktop: hidden */
 }
+.sheet-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+.sheet-header-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-900);
+  cursor: pointer;
+  padding: 0;
+}
+.sheet-handle-chevron {
+  color: var(--ink-500);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+.sheet-handle-chevron.is-up { transform: rotate(180deg); }
 
 /* ─── Responsive ─── */
 @media (max-width: 900px) {
@@ -581,18 +603,14 @@
     height: 82dvh;
   }
 
-  /* Show drag handle on mobile */
-  .sheet-handle-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    padding: 10px 16px 10px;
+  /* Show sheet header on mobile */
+  .sheet-header {
+    display: block;
     background: #fff;
-    border: none;
     border-bottom: 1px solid var(--line);
-    cursor: pointer;
+    padding: 8px 16px 12px;
     flex-shrink: 0;
+    position: relative;
   }
 
   .sheet-handle-bar {
@@ -607,24 +625,26 @@
     background: var(--line-strong);
   }
 
-  .sheet-handle-label {
+  .sheet-header-row {
+    margin-top: 10px;
+  }
+
+  /* Make view toggle bigger for touch */
+  .view-toggle {
+    background: var(--bg-soft);
+    border: 1.5px solid var(--line-strong);
+  }
+
+  .view-toggle__btn {
+    padding: 8px 14px;
     font-size: 13px;
     font-weight: 600;
-    color: var(--ink-900);
-    flex: 1;
-    text-align: left;
-    margin-top: 6px;
   }
 
-  .sheet-handle-chevron {
-    color: var(--ink-500);
-    transition: transform 0.25s ease;
-    flex-shrink: 0;
-    margin-top: 6px;
-  }
-
-  .sheet-handle-chevron.is-up {
-    transform: rotate(180deg);
+  .view-toggle__btn.is-active {
+    background: var(--ink-900);
+    color: #fff;
+    box-shadow: none;
   }
 
   /* Tabs row — more compact on mobile */
