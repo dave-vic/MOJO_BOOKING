@@ -531,31 +531,107 @@
   .view-toggle { display: none; }
 }
 
+/* ─── Sheet handle (bottom-sheet handle bar) ─── */
+.sheet-handle-btn {
+  display: none; /* desktop: hidden */
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 900px) {
   .search-page__layout { grid-template-columns: 1fr; }
   .filters { position: static; }
+}
 
+/* ─── Mobile: Bolt/Uber-style full-screen map + bottom sheet ─── */
+@media (max-width: 767px) {
+  /* Map fills the whole screen */
   .search-map-layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 280px;
-    height: calc(100vh - 64px);
-    height: calc(100dvh - 64px);
-  }
-
-  /* On mobile: list on top, map below */
-  .search-map-sidebar {
-    border-right: none;
-    border-bottom: 1px solid var(--line);
+    display: block;
+    position: relative;
+    height: calc(100dvh - 58px);
     overflow: hidden;
   }
 
-  /* Hide filter topbar on mobile map view — saves ~140px for cards */
-  .search-map-topbar { display: none; }
-}
-
-@media (max-width: 560px) {
-  .search-map-layout {
-    grid-template-rows: 1fr 220px;
+  .search-map-canvas {
+    position: absolute !important;
+    inset: 0;
+    height: 100% !important;
+    z-index: 0;
   }
+
+  /* Sidebar becomes a bottom sheet overlaid on the map */
+  .search-map-sidebar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 310px;
+    border-radius: 20px 20px 0 0;
+    border: none;
+    border-right: none;
+    box-shadow: 0 -6px 32px rgba(0, 0, 0, 0.18);
+    z-index: 20;
+    overflow: hidden;
+    transition: height 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #fff;
+  }
+
+  /* Expanded state — nearly full screen */
+  .search-map-sidebar.is-expanded {
+    height: 82dvh;
+  }
+
+  /* Show drag handle on mobile */
+  .sheet-handle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 16px 10px;
+    background: #fff;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .sheet-handle-bar {
+    display: block;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--line-strong);
+  }
+
+  .sheet-handle-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-900);
+    flex: 1;
+    text-align: left;
+    margin-top: 6px;
+  }
+
+  .sheet-handle-chevron {
+    color: var(--ink-500);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .sheet-handle-chevron.is-up {
+    transform: rotate(180deg);
+  }
+
+  /* Tabs row — more compact on mobile */
+  .search-map-tabrow {
+    padding: var(--s-2) var(--s-3);
+  }
+
+  /* Hide filter topbar in sheet — too much space on mobile */
+  .search-map-topbar { display: none; }
 }

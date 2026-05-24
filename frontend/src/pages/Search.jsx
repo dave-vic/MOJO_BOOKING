@@ -19,6 +19,7 @@ export default function Search() {
     typeof window !== 'undefined' && window.innerWidth < 768 ? 'grid' : 'map'
   )
   const [mapTab, setMapTab] = useState('salons')    // 'salons' | 'stylists'
+  const [sheetExpanded, setSheetExpanded] = useState(false)
   const [activeId, setActiveId] = useState(null)      // active salon id on map
   const [hoveredPopup, setHoveredPopup] = useState(null) // { salonId, html }
   const activeCardRef = useRef(null)
@@ -115,8 +116,24 @@ export default function Search() {
       <div className="search-page is-map">
         <div className="search-map-layout">
 
-          {/* ── Left sidebar ── */}
-          <div className="search-map-sidebar">
+          {/* ── Left sidebar / bottom sheet ── */}
+          <div className={`search-map-sidebar${sheetExpanded ? ' is-expanded' : ''}`}>
+
+            {/* Bottom-sheet handle — mobile only */}
+            <button
+              type="button"
+              className="sheet-handle-btn"
+              onClick={() => setSheetExpanded(e => !e)}
+              aria-label={sheetExpanded ? 'Collapse list' : 'Expand list'}
+            >
+              <span className="sheet-handle-bar" />
+              <span className="sheet-handle-label">
+                {loading ? 'Searching…' : `${sortedSalons.length} venue${sortedSalons.length !== 1 ? 's' : ''} nearby`}
+              </span>
+              <svg className={`sheet-handle-chevron${sheetExpanded ? ' is-up' : ''}`} width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                <path d="M4 6l4 4 4-4"/>
+              </svg>
+            </button>
 
             {/* Compact filter bar */}
             <div className="search-map-topbar">
@@ -324,16 +341,6 @@ export default function Search() {
               onSelect={setActiveId}
               hoveredPopup={hoveredPopup}
             />
-            {/* Floating "Show list" button — mobile only */}
-            <button
-              type="button"
-              className="search-fab search-fab--list"
-              onClick={() => setViewMode('grid')}
-              aria-label="Show list"
-            >
-              <LayoutGrid size={16} strokeWidth={2.2} />
-              Show list
-            </button>
           </div>
         </div>
       </div>
