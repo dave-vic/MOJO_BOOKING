@@ -654,4 +654,7 @@
 
   /* Hide filter topbar in sheet — too much space on mobile */
   .search-map-topbar { display: none; }
+
+  /* Toggle already lives in sheet header on mobile — hide the tabrow duplicate */
+  .search-map-tabrow .view-toggle { display: none; }
 }
