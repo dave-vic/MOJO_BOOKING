@@ -376,7 +376,9 @@
   margin-top: 2px;
 }
 
-.map-salon-card__cta {
+.map-salon-card .map-salon-card__cta,
+.map-salon-card .map-salon-card__cta:link,
+.map-salon-card .map-salon-card__cta:visited {
   flex-shrink: 0;
   font-size: 12px;
   font-weight: 600;
@@ -389,7 +391,7 @@
   transition: all 0.15s ease;
 }
 
-.map-salon-card__cta:hover {
+.map-salon-card .map-salon-card__cta:hover {
   background: var(--brand-100);
 }
 
@@ -472,7 +474,7 @@
   color: var(--ink-700);
 }
 
-.map-stylist-card__book {
+.map-stylist-card .map-stylist-card__book {
   font-size: 12px;
   font-weight: 600;
   color: var(--brand-600);

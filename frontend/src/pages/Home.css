@@ -533,19 +533,19 @@
   color: rgba(255, 255, 255, 0.38);
 }
 
-.hero__trend-pill {
+.hero__trending .hero__trend-pill {
   font-size: 12px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.68);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-weight: 600;
+  color: var(--plum-800);
+  background: rgba(255, 255, 255, 0.90);
+  border: 1px solid rgba(255, 255, 255, 0.90);
   border-radius: var(--r-pill);
   padding: 5px 13px;
   transition: background 0.18s ease, color 0.18s ease;
 }
-.hero__trend-pill:hover {
-  background: rgba(255, 255, 255, 0.16);
-  color: #fff;
+.hero__trending .hero__trend-pill:hover {
+  background: #fff;
+  color: var(--plum-900);
 }
 
 /* Stats */
