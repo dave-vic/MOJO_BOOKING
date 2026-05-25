@@ -99,6 +99,12 @@ a:visited {
   text-decoration: none;
 }
 
+/* Link-as-button colour locks — specificity (0,2,1) beats a:link (0,1,1) */
+a.btn-primary, a.btn-primary:link, a.btn-primary:visited { color: #fff; }
+a.btn-ghost,   a.btn-ghost:link,   a.btn-ghost:visited   { color: var(--ink-900); }
+a.btn-outline, a.btn-outline:link, a.btn-outline:visited  { color: var(--ink-700); }
+a.btn-light,   a.btn-light:link,   a.btn-light:visited    { color: var(--ink-900); }
+
 button {
   font-family: inherit;
   cursor: pointer;

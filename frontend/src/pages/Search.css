@@ -477,10 +477,12 @@
 .map-stylist-card .map-stylist-card__book {
   font-size: 12px;
   font-weight: 600;
-  color: var(--brand-600);
-  background: rgba(22, 163, 74, 0.08);
-  padding: 3px 8px;
+  color: var(--brand-500);
+  background: var(--brand-50);
+  border: 1px solid var(--brand-100);
+  padding: var(--s-2) var(--s-3);
   border-radius: var(--r-sm);
+  white-space: nowrap;
 }
 
 /* Map skeleton placeholder */
