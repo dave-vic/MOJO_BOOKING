@@ -14,10 +14,8 @@ export default function Search() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [sort, setSort] = useState('rating')
-  // Default to grid on mobile — map layout is too cramped on small screens
-  const [viewMode, setViewMode] = useState(() =>
-    typeof window !== 'undefined' && window.innerWidth < 768 ? 'grid' : 'map'
-  )
+  // Default to map on all screen sizes
+  const [viewMode, setViewMode] = useState('map')
   const [mapTab, setMapTab] = useState('salons')    // 'salons' | 'stylists'
   const [sheetExpanded, setSheetExpanded] = useState(false)
   const [activeId, setActiveId] = useState(null)      // active salon id on map
