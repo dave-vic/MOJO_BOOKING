@@ -110,7 +110,7 @@ const HOW_IT_WORKS = [
 
 const TESTIMONIALS = [
   {
-    quote: 'Booking my Saturday silk press takes 20 seconds now. The salons on MojoBooking are the only ones I trust.',
+    quote: 'Booking my Saturday silk press takes 20 seconds now. The salons on VeedaBooking are the only ones I trust.',
     name: 'Akua M.',
     role: 'Brand manager · East Legon',
     initials: 'AM',

@@ -111,7 +111,7 @@ export default function MoMoModal({ open, onClose, deposit, balance, total, onCo
             </button>
 
             <p className="momo-modal__legal">
-              By paying you agree to MojoBooking's <a href="#terms">terms</a>.
+              By paying you agree to VeedaBooking's <a href="#terms">terms</a>.
               A 4% platform fee is included in the service price, paid by the salon — not you.
             </p>
           </form>

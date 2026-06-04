@@ -123,7 +123,7 @@ export default function AuthModal({ onSuccess, onClose, message }) {
               <path d="M8 17 Q8 13 10 13 Q12 13 12 17" stroke="#fff" strokeWidth="2.4" strokeLinecap="round"/>
             </svg>
           </span>
-          <span className="auth-modal__brand-name">mojobooking</span>
+          <span className="auth-modal__brand-name">veedabooking</span>
         </div>
 
         {phase === 'phone' ? (

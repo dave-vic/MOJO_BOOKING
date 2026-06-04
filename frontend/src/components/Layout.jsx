@@ -80,7 +80,7 @@ function Header() {
             </svg>
           </span>
           <span className="brand__wordmark">
-            mojo<em className="brand__accent">booking</em>
+            veeda<em className="brand__accent">booking</em>
           </span>
         </Link>
 
@@ -243,7 +243,7 @@ function Footer() {
               </svg>
             </span>
             <span className="brand__wordmark">
-              mojo<em className="brand__accent">booking</em>
+              veeda<em className="brand__accent">booking</em>
             </span>
           </Link>
           <p className="site-footer__tagline">
@@ -266,7 +266,7 @@ function Footer() {
           <div>
             <h4 className="site-footer__heading">For businesses</h4>
             <ul>
-              <li><a href="#join">Join MojoBooking</a></li>
+              <li><a href="#join">Join VeedaBooking</a></li>
               <li><a href="#partners">Partner program</a></li>
               <li><a href="#tools">Salon tools</a></li>
             </ul>
@@ -284,7 +284,7 @@ function Footer() {
 
       <div className="container site-footer__bottom">
         <span className="site-footer__copy">
-          © {new Date().getFullYear()} MojoBooking · Accra, Ghana
+          © {new Date().getFullYear()} VeedaBooking · Accra, Ghana
         </span>
         <div className="site-footer__legal">
           <a href="#privacy">Privacy</a>
